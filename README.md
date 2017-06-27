@@ -1,2 +1,2 @@
 # Killaura-LVQ
-An LVQ neural network to learn and detect killaura I'm Minecrafg
+A machine learning network using learning vector quantization to categorize types of killaura based on combat style
