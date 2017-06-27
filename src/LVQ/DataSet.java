@@ -24,6 +24,10 @@ public class DataSet {
         return this.dataList;
     }
 
+    public void setData(List<Double> data) {
+        this.dataList = data;
+    }
+
     public String getCategory() {
         return this.category;
     }

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Killaura-LVQ.iml" filepath="$PROJECT_DIR$/.idea/Killaura-LVQ.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Killaura-LVQ.iml" filepath="$PROJECT_DIR$/Killaura-LVQ.iml" />
     </modules>
   </component>
 </project>

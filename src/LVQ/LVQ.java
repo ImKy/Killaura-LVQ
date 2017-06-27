@@ -25,20 +25,46 @@ public class LVQ {
 
     public void train() {
         for (int i = 0; i < this.dataSets.size(); i++) {
-            //
+            DataSet dataSet = this.dataSets.get(i);
+            DataSet dataSet1 = getWinner(this.dataSets.get(i));
+            if (dataSet1.getCategory().equalsIgnoreCase(dataSet.getCategory())) {
+                List<Double> weights = dataSet1.getData();
+                for (int j = 0; j < weights.size(); j++) {
+                    Double weight = weights.get(j);
+                    weight = weight + this.learnRate * (dataSet.getData().get(j) - weight);
+                    weights.set(j, weight);
+                    dataSet1.setData(weights);
+                }
+            } else {
+                List<Double> weights = dataSet1.getData();
+                for (int j = 0; j < weights.size(); j++) {
+                    Double weight = weights.get(j);
+                    weight = weight - this.learnRate * (dataSet.getData().get(j) - weight);
+                    weights.set(j, weight);
+                    dataSet1.setData(weights);
+                }
+            }
+            this.learnRate = this.learnRate - this.learnRate * this.decayRate;
         }
+    }
 
-        // Approach / Diverge
-        // If approach = data point of winner + learn rate x ( data point of current - data point of winner )
-        // If diverge = data point of winner - learn rate x ( data point of current - data point of winner )
-        // Real learn rate = current learn rate x ( 1 - ( epoch / total ) )
+    public Double validate(List<DataSet> dataSets) {
+        Integer totalCorrect = 0;
+        for (int i = 0; i < dataSets.size(); i++) {
+            DataSet dataSet = dataSets.get(i);
+            DataSet winner = getWinner(dataSet);
+            if (winner.getCategory().equalsIgnoreCase(dataSet.getCategory())) {
+                totalCorrect++;
+            }
+        }
+        return Double.valueOf(totalCorrect / dataSets.size());
     }
 
     public String categorizeData(DataSet dataSet) {
         return null;
     }
 
-    public DataSet getWinner(DataSet dataSet) {
+    private DataSet getWinner(DataSet dataSet) {
         DataSet dataSet1 = null;
         double minDist = Double.MAX_VALUE;
         for (int i = 0; i < this.dataSets.size(); i++) {
